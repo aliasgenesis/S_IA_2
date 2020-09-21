@@ -12,7 +12,7 @@ def predict(x, w, b):
 
 def main():
     print("\n          Simulador de compuerta lógica AND y OR por medio del perceptrón\n")
-    compuerta = int(input("Trabajar compuerta and (1) o compuerta OR (2): "))
+    compuerta = int(input("Trabajar compuerta AND (1) o compuerta OR (2): "))
     
     print("Ingrese los valores de los Pesos W\n")
     weights = []
@@ -55,7 +55,9 @@ def main():
     x_values = [-3,3]
     y_values = [-(weights[0]/weights[1])*(-3) - (bias / weights[1]), 
                 -(weights[0]/weights[1])*(3) - (bias / weights[1])]
-    plt.plot(x_values, y_values)
+    plt.axhline(color="purple")
+    plt.axvline(color="purple")
+    plt.plot(x_values, y_values, color="black")
     
 if __name__ == "__main__":
     main()
