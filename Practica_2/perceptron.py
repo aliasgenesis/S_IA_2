@@ -2,8 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 
+def graph(w_values):
+    plt.clf()
+    plt.scatter(X[0], X[1], color="black")
+    plt.axhline(color="blue")
+    plt.axvline(color="blue")
+    x_values = [-3,3]
+    y_values = [-(net.w[0][0]/net.w[1][0])*(-3) - (net.b / net.w[1][0]), 
+                -(net.w[0][0]/net.w[1][0])*(3) - (net.b / net.w[1][0])]
+    plt.plot(x_values, y_values, color="black")
+    plt.pause(0.05)
+
 class neurona:
-    def __init__(self, dim, eta):   #Dimension y proporcion de aprendizaje.
+    def __init__(self, dim, eta):   #Dimension y coeficiente de aprendizaje.
         self.n = dim
         self.eta = eta
         self.w = -1 + 2 * np.random.rand(dim, 1)  #x = min + (max - min)*rand()
@@ -27,6 +38,7 @@ class neurona:
                 if y_pred != y[j]:  #Si nuestro estimado es diferente a nuestro esperado, entrenamos.
                     self.w += self.eta*(y[j] - y_pred) * X[:, j].reshape(-1, 1)
                     self.b += self.eta*(y[j] - y_pred) 
+                graph(self.w)
 
 ################################################################################################################
 
@@ -44,7 +56,7 @@ f.close()
 net = neurona(columns-1, 0.1)
 #Perceptron initialization.
                     
-##########################################################################                    
+###########################################################################                    
 patterns = []
 
 for i in range(columns-1):
@@ -57,19 +69,16 @@ y = np.array(np.loadtxt("DataSet.csv", delimiter=',', usecols=columns-1))
 
 ##########################################################################
 
-net.train(X, y, 30)
-plt.axis([-5, 5, -5, 5]) #xmin, xmax, ymin, ymax
+net.train(X, y, 20)
 
 for i in range(rows):
     print(net.predict(X[:, i]))
     
-plt.title("Perceptrón entrenado", fontsize=20)
-
-plt.scatter(X[0], X[1], color="green")
-
-x_values = [-5,5]
-y_values = [-(net.w[0][0]/net.w[1][0])*(-5) - (net.b / net.w[1][0]), 
-            -(net.w[0][0]/net.w[1][0])*(5) - (net.b / net.w[1][0])]
-plt.axhline(color="purple")
-plt.axvline(color="purple")
-plt.plot(x_values, y_values, color="black")
+plt.clf()
+plt.scatter(X[0], X[1], color="black")
+plt.axhline(color="blue")
+plt.axvline(color="blue")
+x_values = [-3,3]
+y_values = [-(net.w[0][0]/net.w[1][0])*(-3) - (net.b / net.w[1][0]), 
+            -(net.w[0][0]/net.w[1][0])*(3) - (net.b / net.w[1][0])]
+plt.plot(x_values, y_values, color="red")
