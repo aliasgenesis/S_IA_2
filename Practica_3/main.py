@@ -2,8 +2,8 @@ import csv
 import numpy as np
 import perceptron_with_error_graph as pwe
 
-trainingPatternsFileName = "InputValues1.csv"
-outputValuesFileName = "OutputValues1.csv"
+trainingPatternsFileName = "InputValues2.csv"
+outputValuesFileName = "OutputValues2.csv"
 epochs = 20
 
 file = open(trainingPatternsFileName)
@@ -32,7 +32,7 @@ y = np.array(np.loadtxt(outputValuesFileName, delimiter=',', usecols=0))
 #Obtaining training patterns in X and output values in y.
 ###########################################################################
 
-net.train(X, y, 20)
+net.train(X, y, epochs)
 
 results = []
 for i in range(rows):

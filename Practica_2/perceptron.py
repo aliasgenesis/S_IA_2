@@ -7,9 +7,9 @@ def graph(w_values):
     plt.scatter(X[0], X[1], color="black")
     plt.axhline(color="blue")
     plt.axvline(color="blue")
-    x_values = [-3,3]
-    y_values = [-(net.w[0][0]/net.w[1][0])*(-3) - (net.b / net.w[1][0]), 
-                -(net.w[0][0]/net.w[1][0])*(3) - (net.b / net.w[1][0])]
+    x_values = [10,40]
+    y_values = [-(net.w[0][0]/net.w[1][0])*(10) - (net.b / net.w[1][0]), 
+                -(net.w[0][0]/net.w[1][0])*(40) - (net.b / net.w[1][0])]
     plt.plot(x_values, y_values, color="black")
     plt.pause(0.1)
 
@@ -42,12 +42,12 @@ class neurona:
 
 ################################################################################################################
 
-file = open("DataSet2.csv")
+file = open("Libro1.csv")
 rows = len(file.readlines())
 file.close()
 #To obtain the number of rows from the CSV file
 
-f = open("DataSet2.csv",'r')
+f = open("Libro1.csv",'r')
 reader = csv.reader(f,delimiter=',')
 columns = len(next(reader))
 f.close()
@@ -60,16 +60,16 @@ net = neurona(columns-1, 0.1)
 patterns = []
 
 for i in range(columns-1):
-    x = np.array(np.loadtxt("DataSet2.csv", delimiter=',', usecols=i))
+    x = np.array(np.loadtxt("Libro1.csv", delimiter=',', usecols=i))
     patterns.append(x)
 X = np.array(patterns)
 
-y = np.array(np.loadtxt("DataSet2.csv", delimiter=',', usecols=columns-1))
+y = np.array(np.loadtxt("Libro1.csv", delimiter=',', usecols=columns-1))
 #Obtaining training patterns in X and output values in y.
 
 ##########################################################################
 
-net.train(X, y, 20)
+net.train(X, y, 10)
 
 for i in range(rows):
     print(net.predict(X[:, i]))
@@ -78,7 +78,7 @@ plt.clf()
 plt.scatter(X[0], X[1], color="black")
 plt.axhline(color="blue")
 plt.axvline(color="blue")
-x_values = [-3,3]
-y_values = [-(net.w[0][0]/net.w[1][0])*(-3) - (net.b / net.w[1][0]), 
-            -(net.w[0][0]/net.w[1][0])*(3) - (net.b / net.w[1][0])]
+x_values = [10,40]
+y_values = [-(net.w[0][0]/net.w[1][0])*(10) - (net.b / net.w[1][0]), 
+            -(net.w[0][0]/net.w[1][0])*(40) - (net.b / net.w[1][0])]
 plt.plot(x_values, y_values, color="green")

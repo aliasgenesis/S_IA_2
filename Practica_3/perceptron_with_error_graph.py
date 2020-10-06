@@ -11,7 +11,7 @@ plt.title('Graficacion del error del perceptron', fontsize=40)
 def graphError(x_coordinate, y_coordinate):
     plt.scatter(x_coordinate, y_coordinate)
     plt.plot(x_coordinate, y_coordinate, '*', markersize=14)
-    plt.pause(0.5)
+    plt.pause(0.3)
     
 class neurona:
     def __init__(self, dim, eta):   #Dimension y coeficiente de aprendizaje.
