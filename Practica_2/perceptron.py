@@ -7,11 +7,11 @@ def graph(w_values):
     plt.scatter(X[0], X[1], color="black")
     plt.axhline(color="blue")
     plt.axvline(color="blue")
-    x_values = [10,40]
-    y_values = [-(net.w[0][0]/net.w[1][0])*(10) - (net.b / net.w[1][0]), 
-                -(net.w[0][0]/net.w[1][0])*(40) - (net.b / net.w[1][0])]
+    x_values = [-3,3]
+    y_values = [-(net.w[0][0]/net.w[1][0])*(-3) - (net.b / net.w[1][0]), 
+                -(net.w[0][0]/net.w[1][0])*(3) - (net.b / net.w[1][0])]
     plt.plot(x_values, y_values, color="black")
-    plt.pause(0.1)
+    plt.pause(0.4)
 
 class neurona:
     def __init__(self, dim, eta):   #Dimension y coeficiente de aprendizaje.
@@ -38,16 +38,16 @@ class neurona:
                 if y_pred != y[j]:  #Si nuestro estimado es diferente a nuestro esperado, entrenamos.
                     self.w += self.eta*(y[j] - y_pred) * X[:, j].reshape(-1, 1)
                     self.b += self.eta*(y[j] - y_pred) 
-                graph(self.w)
+                    graph(self.w)
 
 ################################################################################################################
 
-file = open("Libro1.csv")
+file = open("DataSet.csv")
 rows = len(file.readlines())
 file.close()
 #To obtain the number of rows from the CSV file
 
-f = open("Libro1.csv",'r')
+f = open("DataSet.csv",'r')
 reader = csv.reader(f,delimiter=',')
 columns = len(next(reader))
 f.close()
@@ -60,11 +60,11 @@ net = neurona(columns-1, 0.1)
 patterns = []
 
 for i in range(columns-1):
-    x = np.array(np.loadtxt("Libro1.csv", delimiter=',', usecols=i))
+    x = np.array(np.loadtxt("DataSet.csv", delimiter=',', usecols=i))
     patterns.append(x)
 X = np.array(patterns)
 
-y = np.array(np.loadtxt("Libro1.csv", delimiter=',', usecols=columns-1))
+y = np.array(np.loadtxt("DataSet.csv", delimiter=',', usecols=columns-1))
 #Obtaining training patterns in X and output values in y.
 
 ##########################################################################
@@ -78,7 +78,7 @@ plt.clf()
 plt.scatter(X[0], X[1], color="black")
 plt.axhline(color="blue")
 plt.axvline(color="blue")
-x_values = [10,40]
-y_values = [-(net.w[0][0]/net.w[1][0])*(10) - (net.b / net.w[1][0]), 
-            -(net.w[0][0]/net.w[1][0])*(40) - (net.b / net.w[1][0])]
+x_values = [-3,3]
+y_values = [-(net.w[0][0]/net.w[1][0])*(-3) - (net.b / net.w[1][0]), 
+            -(net.w[0][0]/net.w[1][0])*(3) - (net.b / net.w[1][0])]
 plt.plot(x_values, y_values, color="green")
