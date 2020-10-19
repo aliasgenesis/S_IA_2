@@ -1,10 +1,10 @@
 import csv
 import numpy as np
-import perceptron_with_error_graph as pwe
+import ADALINE_Batch_Gradient_Descent as Adaline_BGD
 
 trainingPatternsFileName = "InputValues2.csv"
 outputValuesFileName = "OutputValues2.csv"
-epochs = 30
+epochs = 40
 
 file = open(trainingPatternsFileName)
 rows = len(file.readlines())
@@ -26,7 +26,7 @@ file.close()
 neurons_array = []
       
 for i in range(number_of_neurons):
-    net = pwe.neurona(columns, 0.1)
+    net = Adaline_BGD.adaline2(columns, 0.1)
     neurons_array.append(net)
 #Perceptron initialization.
                     
@@ -45,15 +45,26 @@ for i in range(number_of_neurons):
 ###########################################################################
 
 global_errors = []
-for i in range(number_of_neurons):
-    net.train(X, y[i], epochs)
+individual_error = 0.0
+results = []
 
-    individual_error = []
-    for i in range(rows):
-        prediction = net.predict(X[:, i])
-        individual_error.append(prediction)
+for i in range(epochs):
+    for j in range(number_of_neurons):
+        net = neurons_array[j]
+        individual_error += net.train(X, y[j], 1)
+    individual_error /= number_of_neurons
     global_errors.append(individual_error)
+    individual_error = 0.0
+    Adaline_BGD.graphError(i, global_errors[i][0])
 
-global_errors = np.array(global_errors).T
 
-np.savetxt("Results.csv", global_errors, delimiter=",", fmt='%.0f')
+for i in range(number_of_neurons):
+    net = neurons_array[i]
+    individual_result = np.concatenate(net.predict(X).tolist())
+    results.append(individual_result)
+    
+results = np.array(results).T
+print(results)
+print(results.shape)
+np.savetxt("Results.csv", results, delimiter=",", fmt='%.5f')
+    
