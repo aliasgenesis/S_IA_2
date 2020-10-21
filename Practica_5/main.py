@@ -60,11 +60,10 @@ for i in range(epochs):
 
 for i in range(number_of_neurons):
     net = neurons_array[i]
-    individual_result = np.concatenate(net.predict(X).tolist())
+    # individual_result = np.concatenate(net.predict(X).tolist())
+    individual_result = np.concatenate(net.predict(X))    
     results.append(individual_result)
     
 results = np.array(results).T
-print(results)
-print(results.shape)
 np.savetxt("Results.csv", results, delimiter=",", fmt='%.5f')
     

@@ -2,9 +2,9 @@ import csv
 import numpy as np
 import perceptron_with_error_graph as pwe
 
-trainingPatternsFileName = "InputValues2.csv"
-outputValuesFileName = "OutputValues2.csv"
-epochs = 30
+trainingPatternsFileName = "InputValues1.csv"
+outputValuesFileName = "OutputValues1.csv"
+epochs = 40
 
 file = open(trainingPatternsFileName)
 rows = len(file.readlines())
