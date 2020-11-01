@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def graphError(x_coordinate, y_coordinate):    
     plt.scatter(x_coordinate, y_coordinate)
     plt.plot(x_coordinate, y_coordinate, 'ro', markersize=14)
-    plt.pause(0.000001)
+    plt.pause(0.0001)
     
 def main():
     logic_gate = input("Compuerta logica a trabajar (xor/xnor): ")
@@ -70,35 +70,42 @@ def main():
     
     for i in range(epochs):
         error = net.train(X, y, 1, learning_rate)
-        graphError(0,0)    
-        if logic_gate == "xor":
-            plt.title("XOR with MLP")
-            plt.plot(0,0,'r*')
-            plt.plot(0,1,'b*')
-            plt.plot(1,0,'b*')
-            plt.plot(1,1,'r*')
-        elif logic_gate == "xnor":
-            plt.title("XNOR with MLP")
-            plt.plot(0,0,'b*')
-            plt.plot(0,1,'r*')
-            plt.plot(1,0,'r*')
-            plt.plot(1,1,'b*')
-        
-        xx, yy = np.meshgrid(np.arange(-0.1, 1.1, 0.6), np.arange(-0.1, 1.1, 0.6))
-        x_input = [xx.ravel(), yy.ravel()]
-        zz = net.predict(x_input)
-        zz = zz.reshape(xx.shape)
-        
-        plt.contourf(xx, yy, zz, alpha=0.8, cmap=plt.cm.RdBu)
-        
-        plt.xlim([-0.25, 1.25])
-        plt.ylim([-0.25, 1.25])
-        plt.grid()
-        plt.show()
-        if error < 0.09:
+        graphError(i, error)
+        if error < 0.075:
             break
     
     ###########################################################################
+    
+    #Dibujar superficie de decisión
+    plt.figure(2)
+    
+    if logic_gate == "xor":
+        plt.title("XOR with MLP")
+        plt.plot(0,0,'r*')
+        plt.plot(0,1,'b*')
+        plt.plot(1,0,'b*')
+        plt.plot(1,1,'r*')
+    elif logic_gate == "xnor":
+        plt.title("XNOR with MLP")
+        plt.plot(0,0,'b*')
+        plt.plot(0,1,'r*')
+        plt.plot(1,0,'r*')
+        plt.plot(1,1,'b*')
+    
+    xx, yy = np.meshgrid(np.arange(-1, 2.1, 0.1), np.arange(-1, 2.1, 0.1))
+    x_input = [xx.ravel(), yy.ravel()]
+    zz = net.predict(x_input)
+    zz = zz.reshape(xx.shape)
+    
+    plt.contourf(xx, yy, zz, alpha=0.8, cmap=plt.cm.RdBu)
+    
+    plt.xlim([-1, 2])
+    plt.ylim([-1, 2])
+    plt.grid()
+    plt.show()
+    
+    results = np.array(net.predict(X)).T
+    np.savetxt("Results.csv", results, delimiter=",", fmt='%.0f')
     
 if __name__ == "__main__":
     main()
