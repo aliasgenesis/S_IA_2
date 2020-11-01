@@ -2,9 +2,9 @@ import csv
 import numpy as np
 import ADALINE_Batch_Gradient_Descent as Adaline_BGD
 
-trainingPatternsFileName = "InputValues2.csv"
-outputValuesFileName = "OutputValues2.csv"
-epochs = 40
+trainingPatternsFileName = "InputValues3.csv"
+outputValuesFileName = "OutputValues3.csv"
+epochs = 1000
 
 file = open(trainingPatternsFileName)
 rows = len(file.readlines())
@@ -54,8 +54,11 @@ for i in range(epochs):
         individual_error += net.train(X, y[j], 1)
     individual_error /= number_of_neurons
     global_errors.append(individual_error)
-    individual_error = 0.0
+    # individual_error = 0.0
     Adaline_BGD.graphError(i, global_errors[i][0])
+    if individual_error <= 0.02:
+        break
+    individual_error = 0.0
 
 
 for i in range(number_of_neurons):
