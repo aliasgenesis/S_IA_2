@@ -10,6 +10,8 @@ def main():
     print("1) Seno")
     print("2) Coseno")   
     print("3) Tangente Hiperbolica")
+    print("4) Logaritmo Natural")
+    print("5) Valor Absoluto")
     function = int(input("Opcion: "))
     
     trainingPatternsFileName = "InputValues.csv"
@@ -18,24 +20,31 @@ def main():
     if function == 1:
         outputValuesFileName = "SinOutputValues.csv"
         y_funcFile = "Y_Graph_SinValues.csv"
-        plt.title("SIN function", fontsize=20)
         
     elif function == 2:
         outputValuesFileName = "CosOutputValues.csv"
         y_funcFile = "Y_Graph_CosValues.csv"
-        plt.title("COS function", fontsize=20)
     
     elif function == 3:
         outputValuesFileName = "TanhOutputValues.csv"
         y_funcFile = "Y_Graph_TanhValues.csv"
-        plt.title("TANH function", fontsize=20)
+        
+    elif function == 4:
+        trainingPatternsFileName = "LogInputValues.csv"
+        outputValuesFileName = "LogOutputValues.csv"
+        x_funcFile = "Log_Graph_FuncValues.csv"
+        y_funcFile = "Y_Graph_LogValues.csv"
+        
+    elif function == 5:
+        outputValuesFileName = "AbsOutputValues.csv"
+        y_funcFile = "Y_Graph_AbsValues.csv"
         
     else:
         raise ValueError('Funcion Desconocida')
     # CSV documents selection.
     
     
-    epochs = 10000
+    epochs = 1500
     learning_rate = 0.2
     entries = 1  # of columns for the trainingPatternsFileName.
     neurons_in_hidden_layer = 3
@@ -86,7 +95,8 @@ def main():
             plt.show()
             plt.pause(0.2)
             
-            if error < 0.03:
+            # if error < 0.03:
+            if error < 0.0015: #Para tanh y log.
                 break
     
     plt.figure(2)
