@@ -45,7 +45,7 @@ def main():
     
     
     epochs = 1500
-    learning_rate = 0.2
+    learning_rate = 0.1
     entries = 1  # of columns for the trainingPatternsFileName.
     neurons_in_hidden_layer = 3
     output_layer_neurons = 1
