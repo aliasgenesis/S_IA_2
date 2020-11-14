@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 # Error graphing function.
 def graphLearning(x_coordinate, y_coordinate):    
     plt.plot(x_coordinate, y_coordinate)
-    plt.pause(0.000000001)
+    plt.pause(0.2)
     
 def graphError(x_coordinate, y_coordinate):    
     plt.plot(x_coordinate, y_coordinate, 'ro', markersize=10)
-    plt.pause(0.000001)
+    plt.pause(0.000000001)
     
 def main():
     logic_gate = input("Compuerta logica a trabajar (xor/xnor): ")
@@ -88,22 +88,23 @@ def main():
     for i in range(epochs):
         error = net.train(X, y, 1, learning_rate)
         error_list.append(error)
-        graphLearning(0,0)    
-        
-        # xx, yy = np.meshgrid(np.arange(-0.1, 1.1, 0.6), np.arange(-0.1, 1.1, 0.6))
-        xx, yy = np.meshgrid(np.arange(-1, 2.1, 0.1), np.arange(-1, 2.1, 0.1))
-        x_input = [xx.ravel(), yy.ravel()]
-        zz = net.predict(x_input)
-        zz = zz.reshape(xx.shape)
-        
-        plt.contourf(xx, yy, zz, alpha=0.8, cmap=plt.cm.RdBu)
-        
-        # plt.xlim([-0.25, 1.25])
-        # plt.ylim([-0.25, 1.25])
-        plt.xlim([-1, 2])
-        plt.ylim([-1, 2])
-        plt.grid()
-        plt.show()
+        if i%10 == 0:
+            graphLearning(0,0)   
+            
+            # xx, yy = np.meshgrid(np.arange(-0.1, 1.1, 0.6), np.arange(-0.1, 1.1, 0.6))
+            xx, yy = np.meshgrid(np.arange(-1, 2.1, 0.1), np.arange(-1, 2.1, 0.1))
+            x_input = [xx.ravel(), yy.ravel()]
+            zz = net.predict(x_input)
+            zz = zz.reshape(xx.shape)
+            
+            plt.contourf(xx, yy, zz, alpha=0.8, cmap=plt.cm.RdBu)
+            
+            # plt.xlim([-0.25, 1.25])
+            # plt.ylim([-0.25, 1.25])
+            plt.xlim([-1, 2])
+            plt.ylim([-1, 2])
+            plt.grid()
+            plt.show()
         if error < 0.15:
             break
     
